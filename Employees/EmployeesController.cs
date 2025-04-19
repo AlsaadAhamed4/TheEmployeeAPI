@@ -20,7 +20,10 @@ public class EmployeesController : BaseController  // our end point will be /emp
         //  _createValidator = createValidator;
     }
 
-
+/// <summary>
+    /// Get all employees.
+    /// </summary>
+    /// <returns>An array of all employees.</returns>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<GetEmployeeResponse>), StatusCodes.Status200OK)]  // for documentation in swagger
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -41,6 +44,11 @@ public class EmployeesController : BaseController  // our end point will be /emp
         }));
     }
 
+/// <summary>
+    /// Gets an employee by ID.
+    /// </summary>
+    /// <param name="id">The ID of the employee.</param>
+    /// <returns>The single employee record.</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetEmployeeResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -67,6 +75,12 @@ public class EmployeesController : BaseController  // our end point will be /emp
         });
     }
 
+
+/// <summary>
+    /// Creates a new employee.
+    /// </summary>
+    /// <param name="employeeRequest">The employee to be created.</param>
+    /// <returns>A link to the employee that was created.</returns>
     [HttpPost]
     [ProducesResponseType(typeof(GetEmployeeResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
@@ -101,6 +115,13 @@ public class EmployeesController : BaseController  // our end point will be /emp
         return CreatedAtAction(nameof(GetEmployeeById), new { id = newEmployee.Id }, newEmployee);
     }
 
+    
+    /// <summary>
+    /// Updates an employee.
+    /// </summary>
+    /// <param name="id">The ID of the employee to update.</param>
+    /// <param name="employeeRequest">The employee data to update.</param>
+    /// <returns></returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(GetEmployeeResponse), StatusCodes.Status200OK)] // documentation for swagger ui
     [ProducesResponseType(StatusCodes.Status404NotFound)]
