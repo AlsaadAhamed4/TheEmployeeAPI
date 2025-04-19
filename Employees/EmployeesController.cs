@@ -65,11 +65,15 @@ public class EmployeesController : BaseController  // our end point will be /emp
     [HttpPost]
     public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeRequest employeeRequest)
     {
-        var validationResults = await ValidateAsync(employeeRequest);
-        if (!validationResults.IsValid)
-        {
-            return ValidationProblem(validationResults.ToModelStateDictionary());
-        }
+        _logger.LogInformation("entere create mode");
+        
+        await Task.CompletedTask; // just to make asyn thing else I need to remove async keyword.
+
+        // var validationResults = await ValidateAsync(employeeRequest);
+        // if (!validationResults.IsValid)
+        // {
+        //     return ValidationProblem(validationResults.ToModelStateDictionary());
+        // }  // we no longer need this as we are using a fluent validation filter as a micro middler in the controller
 
         var newEmployee = new Employee
         {

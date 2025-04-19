@@ -48,7 +48,9 @@ public class CreateEmployeeRequestValidator : AbstractValidator<CreateEmployeeRe
 {
     public CreateEmployeeRequestValidator()
     {
-        RuleFor(x => x.FirstName).NotEmpty().WithMessage("First name is required.");
-        RuleFor(x => x.LastName).NotEmpty().WithMessage("Last name is required");
+        RuleFor(x => x.FirstName).NotEmpty().WithMessage("First name is required.")
+        .Must(name => !int.TryParse(name, out _)).WithMessage("First name cannot be a number.");
+        RuleFor(x => x.LastName).NotEmpty().WithMessage("Last name is required")
+         .Must(name => !int.TryParse(name, out _)).WithMessage("Last name cannot be a number.");;
     }
 }

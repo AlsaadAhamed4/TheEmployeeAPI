@@ -21,7 +21,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IRepository<Employee>, EmployeeRepository>();   // registering a service (Repository created us by)
 builder.Services.AddProblemDetails(); // service to prettify the error msg to json
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();  // for fluent validator
-builder.Services.AddControllers(); // now we are going controller structure for the API
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<FluentValidationFilter>(); // adding the filter which we created to our controllers. (kind of micro-middleware)
+}); // now we are going controller structure for the API
 
 var app = builder.Build();
 

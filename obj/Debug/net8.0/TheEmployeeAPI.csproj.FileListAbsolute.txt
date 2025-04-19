@@ -69,3 +69,4 @@ d:/dotnet/TheEmployeeAPI/bin/Debug/net8.0/FluentValidation.DependencyInjectionEx
 /Users/alsaadahamed/Downloads/dotnet/TheEmployeeAPI/obj/Debug/net8.0/TheEmployeeAPI.pdb
 /Users/alsaadahamed/Downloads/dotnet/TheEmployeeAPI/obj/Debug/net8.0/TheEmployeeAPI.genruntimeconfig.cache
 /Users/alsaadahamed/Downloads/dotnet/TheEmployeeAPI/obj/Debug/net8.0/ref/TheEmployeeAPI.dll
+/Users/alsaadahamed/Downloads/dotnet/TheEmployeeAPI/bin/Debug/net8.0/FluentValidation.AspNetCore.dll
