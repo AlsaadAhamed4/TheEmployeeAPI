@@ -22,6 +22,8 @@ public class EmployeesController : BaseController  // our end point will be /emp
 
 
     [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<GetEmployeeResponse>), StatusCodes.Status200OK)]  // for documentation in swagger
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public IActionResult GetAll()
     {
         _logger.LogInformation("Entered Get all employee");
@@ -40,6 +42,9 @@ public class EmployeesController : BaseController  // our end point will be /emp
     }
 
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(GetEmployeeResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public IActionResult GetEmployeeById(int id)
     {
         var employee = _repository.GetById(id);
@@ -63,6 +68,9 @@ public class EmployeesController : BaseController  // our end point will be /emp
     }
 
     [HttpPost]
+    [ProducesResponseType(typeof(GetEmployeeResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeRequest employeeRequest)
     {
         _logger.LogInformation("entere create mode");
@@ -94,6 +102,10 @@ public class EmployeesController : BaseController  // our end point will be /emp
     }
 
     [HttpPut("{id}")]
+    [ProducesResponseType(typeof(GetEmployeeResponse), StatusCodes.Status200OK)] // documentation for swagger ui
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public IActionResult UpdateEmployee(int id, [FromBody] UpdateEmployeeRequest employeeRequest)
     {
         var existingEmployee = _repository.GetById(id);

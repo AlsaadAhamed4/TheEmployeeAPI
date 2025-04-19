@@ -7,6 +7,7 @@ namespace TheEmployeeAPI;
 
 [ApiController]
 [Route("[controller]")]  // this acts as mapGroup which tells start from /employees
+[Produces("application/json")] // for swagger UI media type
 public abstract class BaseController : Controller  // this is a abstract class which can be inherited by new class
 {
     protected async Task<ValidationResult> ValidateAsync<T>(T instance)   // using fluent validator
