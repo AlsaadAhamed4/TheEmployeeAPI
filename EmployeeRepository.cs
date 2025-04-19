@@ -2,7 +2,7 @@ using System;
 using TheEmployeeAPI.Abstractions;
 
 namespace TheEmployeeAPI;
-public class EmployeeRepository : IRepository<Employee>
+public class EmployeeRepository : IRepository<Employee>   // using Interface 
 {
     private readonly List<Employee> _employees = new();
 

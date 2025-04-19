@@ -5,15 +5,18 @@ using TheEmployeeAPI.Abstractions;
 
 namespace TheEmployeeAPI.Employees;
 
-public class EmployeesController : BaseController  // our end point will be employees 
+public class EmployeesController : BaseController  // our end point will be /employees 
 {
     private readonly IRepository<Employee> _repository;
+    private readonly ILogger<EmployeesController> _logger;
+
     // private readonly IValidator<CreateEmployeeRequest> _createValidator;  for only one end we have the validator so we are moving this to base contorller
 
     //public EmployeesController(IRepository<Employee> repository, IValidator<CreateEmployeeRequest> createValidator)
-    public EmployeesController(IRepository<Employee> repository)
+    public EmployeesController(IRepository<Employee> repository, ILogger<EmployeesController> logger)
     {
         _repository = repository;
+        _logger = logger;
         //  _createValidator = createValidator;
     }
 
@@ -21,6 +24,7 @@ public class EmployeesController : BaseController  // our end point will be empl
     [HttpGet]
     public IActionResult GetAll()
     {
+        _logger.LogInformation("Entered Get all employee");
         return Ok(_repository.GetAll().Select(employee => new GetEmployeeResponse
         {
             FirstName = employee.FirstName,

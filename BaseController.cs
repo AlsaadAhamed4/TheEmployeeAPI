@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace TheEmployeeAPI;
 
 [ApiController]
-[Route("[controller]")]
-public abstract class BaseController : Controller
+[Route("[controller]")]  // this acts as mapGroup which tells start from /employees
+public abstract class BaseController : Controller  // this is a abstract class which can be inherited by new class
 {
     protected async Task<ValidationResult> ValidateAsync<T>(T instance)   // using fluent validator
     {
