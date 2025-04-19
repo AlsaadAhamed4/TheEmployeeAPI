@@ -570,19 +570,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Alsaad\\.nuget\\packages\\": {}
+    "/Users/alsaadahamed/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\dotnet\\TheEmployeeAPI\\TheEmployeeAPI.csproj",
+      "projectUniqueName": "/Users/alsaadahamed/Downloads/dotnet/TheEmployeeAPI/TheEmployeeAPI.csproj",
       "projectName": "TheEmployeeAPI",
-      "projectPath": "D:\\dotnet\\TheEmployeeAPI\\TheEmployeeAPI.csproj",
-      "packagesPath": "C:\\Users\\Alsaad\\.nuget\\packages\\",
-      "outputPath": "D:\\dotnet\\TheEmployeeAPI\\obj\\",
+      "projectPath": "/Users/alsaadahamed/Downloads/dotnet/TheEmployeeAPI/TheEmployeeAPI.csproj",
+      "packagesPath": "/Users/alsaadahamed/.nuget/packages/",
+      "outputPath": "/Users/alsaadahamed/Downloads/dotnet/TheEmployeeAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Alsaad\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/alsaadahamed/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -648,7 +648,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.408/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
