@@ -17,6 +17,13 @@
             <param name="id">The ID of the employee.</param>
             <returns>The single employee record.</returns>
         </member>
+        <member name="M:TheEmployeeAPI.Employees.EmployeesController.GetBenefitsForEmployee(System.Int32)">
+            <summary>
+            Gets the benefits for an employee.
+            </summary>
+            <param name="employeeId">The ID to get the benefits for.</param>
+            <returns>The benefits for that employee.</returns>
+        </member>
         <member name="M:TheEmployeeAPI.Employees.EmployeesController.CreateEmployee(CreateEmployeeRequest)">
             <summary>
             Creates a new employee.

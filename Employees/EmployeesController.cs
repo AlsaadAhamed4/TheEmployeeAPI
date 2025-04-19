@@ -20,7 +20,7 @@ public class EmployeesController : BaseController  // our end point will be /emp
         //  _createValidator = createValidator;
     }
 
-/// <summary>
+    /// <summary>
     /// Get all employees.
     /// </summary>
     /// <returns>An array of all employees.</returns>
@@ -30,21 +30,11 @@ public class EmployeesController : BaseController  // our end point will be /emp
     public IActionResult GetAll()
     {
         _logger.LogInformation("Entered Get all employee");
-        return Ok(_repository.GetAll().Select(employee => new GetEmployeeResponse
-        {
-            FirstName = employee.FirstName,
-            LastName = employee.LastName,
-            Address1 = employee.Address1,
-            Address2 = employee.Address2,
-            City = employee.City,
-            State = employee.State,
-            ZipCode = employee.ZipCode,
-            PhoneNumber = employee.PhoneNumber,
-            Email = employee.Email
-        }));
+        var employees = _repository.GetAll().Select(EmployeeToGetEmployeeResponse);
+        return Ok(employees);
     }
 
-/// <summary>
+    /// <summary>
     /// Gets an employee by ID.
     /// </summary>
     /// <param name="id">The ID of the employee.</param>
@@ -61,22 +51,33 @@ public class EmployeesController : BaseController  // our end point will be /emp
             return NotFound();
         }
 
-        return Ok(new GetEmployeeResponse
+        var employeeResponse = EmployeeToGetEmployeeResponse(employee);
+
+        return Ok(employeeResponse);
+    }
+
+    /// <summary>
+    /// Gets the benefits for an employee.
+    /// </summary>
+    /// <param name="employeeId">The ID to get the benefits for.</param>
+    /// <returns>The benefits for that employee.</returns>
+    [HttpGet("{employeeId}/benefits")]
+    [ProducesResponseType(typeof(IEnumerable<GetEmployeeResponseEmployeeBenefit>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public IActionResult GetBenefitsForEmployee(int employeeId)
+    {
+        var employee = _repository.GetById(employeeId);
+        if (employee == null)
         {
-            FirstName = employee.FirstName,
-            LastName = employee.LastName,
-            Address1 = employee.Address1,
-            Address2 = employee.Address2,
-            City = employee.City,
-            State = employee.State,
-            ZipCode = employee.ZipCode,
-            PhoneNumber = employee.PhoneNumber,
-            Email = employee.Email
-        });
+            return NotFound();
+        }
+        return Ok(employee.Benefits.Select(BenefitToBenefitResponse));
     }
 
 
-/// <summary>
+
+    /// <summary>
     /// Creates a new employee.
     /// </summary>
     /// <param name="employeeRequest">The employee to be created.</param>
@@ -88,7 +89,7 @@ public class EmployeesController : BaseController  // our end point will be /emp
     public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeRequest employeeRequest)
     {
         _logger.LogInformation("entere create mode");
-        
+
         await Task.CompletedTask; // just to make asyn thing else I need to remove async keyword.
 
         // var validationResults = await ValidateAsync(employeeRequest);
@@ -115,7 +116,7 @@ public class EmployeesController : BaseController  // our end point will be /emp
         return CreatedAtAction(nameof(GetEmployeeById), new { id = newEmployee.Id }, newEmployee);
     }
 
-    
+
     /// <summary>
     /// Updates an employee.
     /// </summary>
@@ -146,4 +147,35 @@ public class EmployeesController : BaseController  // our end point will be /emp
         _repository.Update(existingEmployee);
         return Ok(existingEmployee);
     }
+
+    // helper function to retun the same the response structure
+    private GetEmployeeResponse EmployeeToGetEmployeeResponse(Employee employee)
+    {
+        return new GetEmployeeResponse
+        {
+            FirstName = employee.FirstName,
+            LastName = employee.LastName,
+            Address1 = employee.Address1,
+            Address2 = employee.Address2,
+            City = employee.City,
+            State = employee.State,
+            ZipCode = employee.ZipCode,
+            PhoneNumber = employee.PhoneNumber,
+            Email = employee.Email,
+            Benefits = employee.Benefits.Select(BenefitToBenefitResponse).ToList()
+        };
+    }
+
+    private static GetEmployeeResponseEmployeeBenefit BenefitToBenefitResponse(EmployeeBenefits benefit)
+    {
+        return new GetEmployeeResponseEmployeeBenefit
+        {
+            Id = benefit.Id,
+            EmployeeId = benefit.EmployeeId,
+            BenefitType = benefit.BenefitType,
+            Cost = benefit.Cost
+        };
+    }
+
+
 }
